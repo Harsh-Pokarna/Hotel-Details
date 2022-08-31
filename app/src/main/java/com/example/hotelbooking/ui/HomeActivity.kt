@@ -6,13 +6,19 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.hotelbooking.HotelsRepository
 import com.example.hotelbooking.R
+import com.example.hotelbooking.adapters.HomeAdapter
 import com.example.hotelbooking.factories.HotelsViewModelProviderFactory
+import com.example.hotelbooking.models.Hotel
+import kotlinx.android.synthetic.main.activity_home.*
 
-class HomeActivity : AppCompatActivity() {
+class HomeActivity : AppCompatActivity(), HomeAdapter.OnClicked {
 
     lateinit var viewModel: HotelViewModel
+
+    private val homeAdapter by lazy { HomeAdapter(emptyList(), this) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,6 +29,7 @@ class HomeActivity : AppCompatActivity() {
 
     private fun init() {
         initialiseVariables()
+        setViews()
         makeApiCall()
         setObservers()
     }
@@ -34,17 +41,26 @@ class HomeActivity : AppCompatActivity() {
         viewModel = ViewModelProvider(this, viewModelProviderFactory)[HotelViewModel::class.java]
     }
 
+    private fun setViews() {
+        hotel_recyclerview.layoutManager = LinearLayoutManager(this)
+        hotel_recyclerview.adapter = homeAdapter
+    }
+
     private fun makeApiCall() {
         viewModel.getHotels()
     }
 
     private fun setObservers() {
-        viewModel.hotels.observe(this, Observer {
-            println(it)
-        })
+        viewModel.hotels.observe(this) {
+            homeAdapter.addData(it)
+        }
     }
 
     companion object {
         fun newInstance(context: Context): Intent = Intent(context, HomeActivity::class.java)
+    }
+
+    override fun onClicked(hotel: Hotel) {
+        TODO("Not yet implemented")
     }
 }

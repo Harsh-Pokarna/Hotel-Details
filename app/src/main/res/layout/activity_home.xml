@@ -18,7 +18,8 @@
             android:hint="Search for hotels"
             android:background="@drawable/searchbar_background"/>
 
-        <GridView
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/hotel_recyclerview"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
