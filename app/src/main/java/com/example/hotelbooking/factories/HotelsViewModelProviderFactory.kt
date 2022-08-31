@@ -2,7 +2,7 @@ package com.example.hotelbooking.factories
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.example.hotelbooking.HotelsRepository
+import com.example.hotelbooking.repository.HotelsRepository
 import com.example.hotelbooking.ui.HotelViewModel
 
 class HotelsViewModelProviderFactory(

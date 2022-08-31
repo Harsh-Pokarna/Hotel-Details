@@ -1,5 +1,7 @@
 package com.example.hotelbooking.models
 
+import java.io.Serializable
+
 data class Hotel(
     val city: String,
     val country: String,
@@ -12,4 +14,4 @@ data class Hotel(
     val price: Int,
     val rating: Double,
     val stars: Int
-)
+) : Serializable

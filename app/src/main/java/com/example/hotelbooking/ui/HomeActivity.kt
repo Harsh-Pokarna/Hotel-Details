@@ -4,10 +4,9 @@ import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.hotelbooking.HotelsRepository
+import com.example.hotelbooking.repository.HotelsRepository
 import com.example.hotelbooking.R
 import com.example.hotelbooking.adapters.HomeAdapter
 import com.example.hotelbooking.factories.HotelsViewModelProviderFactory
@@ -61,6 +60,8 @@ class HomeActivity : AppCompatActivity(), HomeAdapter.OnClicked {
     }
 
     override fun onClicked(hotel: Hotel) {
-        TODO("Not yet implemented")
+        val intent = Intent(this, HotelActivity::class.java)
+        intent.putExtra("hotel", hotel)
+        startActivity(intent)
     }
 }

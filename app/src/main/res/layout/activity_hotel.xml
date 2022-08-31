@@ -45,6 +45,7 @@
                     android:layout_weight="1" />
 
                 <TextView
+                    android:id="@+id/activity_hotel_rating_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="36dp"
@@ -53,6 +54,7 @@
             </LinearLayout>
 
             <TextView
+                android:id="@+id/activity_hotel_description_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="12dp"
@@ -72,6 +74,7 @@
                 android:textStyle="bold" />
 
             <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/reviews_recycler_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="12dp"

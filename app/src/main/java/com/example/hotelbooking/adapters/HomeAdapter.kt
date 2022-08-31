@@ -22,7 +22,7 @@ class HomeAdapter(private var hotelsList: List<Hotel>, private val listener: OnC
             hotelRating.text = "${hotel.stars} stars"
             hotelLocation.text = "${hotel.city}, ${hotel.country}"
 
-            bookNowBtn.setOnClickListener {
+            itemView.setOnClickListener {
                 listener.onClicked(hotel)
             }
         }
