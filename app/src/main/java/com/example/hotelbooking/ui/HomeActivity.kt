@@ -11,6 +11,8 @@ import android.graphics.Color
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import android.widget.RemoteViews
 import androidx.core.app.NotificationCompat
 import androidx.lifecycle.ViewModelProvider
@@ -20,6 +22,8 @@ import com.example.hotelbooking.R
 import com.example.hotelbooking.adapters.HomeAdapter
 import com.example.hotelbooking.factories.HotelsViewModelProviderFactory
 import com.example.hotelbooking.models.Hotel
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import kotlinx.android.synthetic.main.activity_home.*
 import android.app.PendingIntent.getActivity as getActivity1
 
@@ -94,6 +98,22 @@ class HomeActivity : AppCompatActivity(), HomeAdapter.OnClicked {
                 .setContentTitle("Hotel is Booked")
                 .setContentIntent(pendingIntent)
         }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.sigin_out_menu, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when(item.itemId) {
+            R.id.sign_out_btn -> {
+                GoogleSignIn.getClient(applicationContext, GoogleSignInOptions.DEFAULT_SIGN_IN).signOut()
+                startActivity(Intent(this, MainActivity::class.java))
+                finish()
+            }
+        }
+        return true
     }
 
     private fun showNotification() {
