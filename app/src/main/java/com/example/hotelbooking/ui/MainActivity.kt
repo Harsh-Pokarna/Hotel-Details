@@ -71,12 +71,11 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun handleResult(task: Task<GoogleSignInAccount>) {
-        try {
+        if (task.isSuccessful) {
             startActivity(HomeActivity.newInstance(this))
             finish()
-        } catch (e: ApiException) {
-            Log.e("TAG", e.message!!)
-            Toast.makeText(this, e.message, Toast.LENGTH_SHORT).show()
+        } else {
+            Toast.makeText(this, task.exception.toString(), Toast.LENGTH_SHORT).show()
         }
     }
 

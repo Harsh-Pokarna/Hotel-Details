@@ -112,7 +112,7 @@ class HomeActivity : AppCompatActivity(), HomeAdapter.OnClicked {
 
     private fun setNotification() {
         val intent = Intent(this, HomeActivity::class.java)
-        val pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT)
+        val pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_IMMUTABLE)
 //        val contentView = RemoteViews(packageName, R.layout.activity_home)
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
