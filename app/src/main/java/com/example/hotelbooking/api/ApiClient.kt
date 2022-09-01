@@ -9,7 +9,10 @@ import retrofit2.http.Query
 interface ApiClient {
 
     @GET("api/hotels")
-    suspend fun getHotels(): Response<MutableList<Hotel>>
+    suspend fun getHotels(
+        @Query("force_error")
+        forceError: Int = 1
+    ): Response<MutableList<Hotel>>
 
     @GET("api/reviews")
     suspend fun getReviews(

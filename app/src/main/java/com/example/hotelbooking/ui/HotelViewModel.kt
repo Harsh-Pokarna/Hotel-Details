@@ -1,6 +1,7 @@
 package com.example.hotelbooking.ui
 
 import android.util.Log
+import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -15,7 +16,9 @@ class HotelViewModel(
 ) : ViewModel() {
 
     val hotels: MutableLiveData<List<Hotel>> = MutableLiveData()
+    val hotelsError: MutableLiveData<String> = MutableLiveData()
     val reviews: MutableLiveData<List<Review>> = MutableLiveData()
+    val reviewsError: MutableLiveData<String> = MutableLiveData()
 
     fun getHotels() = viewModelScope.launch {
         val response = hotelsRepository.getHotels()
@@ -24,7 +27,7 @@ class HotelViewModel(
                 hotels.postValue(it)
             }
         } else {
-            Log.e("TAG", response.message())
+            hotelsError.postValue(response.toString())
         }
     }
 
@@ -35,7 +38,7 @@ class HotelViewModel(
                 reviews.postValue(it)
             }
         } else {
-            throw Exception(response.message())
+            reviewsError.postValue(response.toString())
         }
     }
 

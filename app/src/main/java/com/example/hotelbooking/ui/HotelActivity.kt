@@ -5,6 +5,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.hotelbooking.R
@@ -62,6 +63,10 @@ class HotelActivity : AppCompatActivity() {
     private fun setObservers() {
         viewModel.reviews.observe(this) {
             hotelAdapter.addData(it)
+        }
+
+        viewModel.reviewsError.observe(this) {
+            Toast.makeText(this, it, Toast.LENGTH_SHORT).show()
         }
     }
 

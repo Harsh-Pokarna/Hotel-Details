@@ -17,6 +17,7 @@ import android.view.MenuItem
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.TextView.OnEditorActionListener
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -28,6 +29,7 @@ import com.example.hotelbooking.repository.HotelsRepository
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import kotlinx.android.synthetic.main.activity_home.*
+import java.lang.Exception
 
 
 class HomeActivity : AppCompatActivity(), HomeAdapter.OnClicked {
@@ -83,6 +85,13 @@ class HomeActivity : AppCompatActivity(), HomeAdapter.OnClicked {
             home_loading_indicator.visibility = View.GONE
             hotelsList = it
             homeAdapter.addData(hotelsList)
+        }
+
+        viewModel.hotelsError.observe(this) {
+            main_home_layout.visibility = View.VISIBLE
+            home_loading_indicator.visibility = View.GONE
+            Toast.makeText(this, it, Toast.LENGTH_SHORT).show()
+
         }
     }
 
