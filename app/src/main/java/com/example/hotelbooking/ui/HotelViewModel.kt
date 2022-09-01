@@ -1,5 +1,6 @@
 package com.example.hotelbooking.ui
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -23,7 +24,7 @@ class HotelViewModel(
                 hotels.postValue(it)
             }
         } else {
-            throw Exception(response.message())
+            Log.e("TAG", response.message())
         }
     }
 

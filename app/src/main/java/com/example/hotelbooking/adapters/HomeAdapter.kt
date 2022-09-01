@@ -25,6 +25,10 @@ class HomeAdapter(private var hotelsList: List<Hotel>, private val listener: OnC
             itemView.setOnClickListener {
                 listener.onClicked(hotel)
             }
+
+            bookNowBtn.setOnClickListener {
+                listener.onBtnClicked()
+            }
         }
 
     }
@@ -50,5 +54,6 @@ class HomeAdapter(private var hotelsList: List<Hotel>, private val listener: OnC
 
     interface OnClicked {
         fun onClicked(hotel: Hotel)
+        fun onBtnClicked()
     }
 }

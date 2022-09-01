@@ -50,6 +50,7 @@ class HotelActivity : AppCompatActivity() {
         activity_hotel_description_tv.text = hotel.description
         activity_hotel_rating_tv.text = "${hotel.stars} stars"
 
+        reviews_recycler_view.isNestedScrollingEnabled = false
         reviews_recycler_view.layoutManager = LinearLayoutManager(this)
         reviews_recycler_view.adapter = hotelAdapter
     }
