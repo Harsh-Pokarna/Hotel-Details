@@ -72,7 +72,6 @@ class MainActivity : AppCompatActivity() {
 
     private fun handleResult(task: Task<GoogleSignInAccount>) {
         try {
-            val account = task.getResult(ApiException::class.java)!!
             startActivity(HomeActivity.newInstance(this))
             finish()
         } catch (e: ApiException) {

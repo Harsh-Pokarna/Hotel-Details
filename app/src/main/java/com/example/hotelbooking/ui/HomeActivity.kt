@@ -9,23 +9,25 @@ import android.content.Intent
 import android.graphics.BitmapFactory
 import android.graphics.Color
 import android.os.Build
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
+import android.view.KeyEvent
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.RemoteViews
-import androidx.core.app.NotificationCompat
+import android.view.inputmethod.EditorInfo
+import android.widget.TextView.OnEditorActionListener
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.hotelbooking.repository.HotelsRepository
 import com.example.hotelbooking.R
 import com.example.hotelbooking.adapters.HomeAdapter
 import com.example.hotelbooking.factories.HotelsViewModelProviderFactory
 import com.example.hotelbooking.models.Hotel
+import com.example.hotelbooking.repository.HotelsRepository
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import kotlinx.android.synthetic.main.activity_home.*
-import android.app.PendingIntent.getActivity as getActivity1
+
 
 class HomeActivity : AppCompatActivity(), HomeAdapter.OnClicked {
 
@@ -35,6 +37,8 @@ class HomeActivity : AppCompatActivity(), HomeAdapter.OnClicked {
     lateinit var notificationBuilder: Notification.Builder
 
     private val homeAdapter by lazy { HomeAdapter(emptyList(), this) }
+
+    private var hotelsList: List<Hotel> = emptyList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,6 +52,7 @@ class HomeActivity : AppCompatActivity(), HomeAdapter.OnClicked {
         setViews()
         makeApiCall()
         setObservers()
+        setListeners()
     }
 
     private fun initialiseVariables() {
@@ -60,6 +65,7 @@ class HomeActivity : AppCompatActivity(), HomeAdapter.OnClicked {
     }
 
     private fun setViews() {
+        search_hotel_et.imeOptions = EditorInfo.IME_ACTION_DONE
         hotel_recyclerview.layoutManager = LinearLayoutManager(this)
         hotel_recyclerview.adapter = homeAdapter
 
@@ -72,7 +78,24 @@ class HomeActivity : AppCompatActivity(), HomeAdapter.OnClicked {
 
     private fun setObservers() {
         viewModel.hotels.observe(this) {
-            homeAdapter.addData(it)
+            hotelsList = it
+            homeAdapter.addData(hotelsList)
+        }
+    }
+
+    private fun setListeners() {
+        search_hotel_et.setOnEditorActionListener { v, actionId, event ->
+            val filteredList: MutableList<Hotel> = mutableListOf()
+            if (event != null && event.keyCode == KeyEvent.KEYCODE_ENTER || actionId == EditorInfo.IME_ACTION_DONE) {
+                for (hotel in hotelsList) {
+                    if (hotel.name.contains(search_hotel_et.text)) {
+                        filteredList.add(hotel)
+                    }
+                }
+                homeAdapter.addData(filteredList)
+                Log.i("TAG", "Enter pressed")
+            }
+            false
         }
     }
 

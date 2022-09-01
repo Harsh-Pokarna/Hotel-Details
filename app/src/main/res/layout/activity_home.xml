@@ -11,9 +11,12 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
         <EditText
+            android:id="@+id/search_hotel_et"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="10dp"
+            android:imeOptions="actionDone"
+            android:singleLine="true"
             android:layout_marginTop="20dp"
             android:hint="Search for hotels"
             android:background="@drawable/searchbar_background"/>
