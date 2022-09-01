@@ -14,6 +14,7 @@ import android.util.Log
 import android.view.KeyEvent
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.TextView.OnEditorActionListener
 import androidx.appcompat.app.AppCompatActivity
@@ -78,6 +79,8 @@ class HomeActivity : AppCompatActivity(), HomeAdapter.OnClicked {
 
     private fun setObservers() {
         viewModel.hotels.observe(this) {
+            main_home_layout.visibility = View.VISIBLE
+            home_loading_indicator.visibility = View.GONE
             hotelsList = it
             homeAdapter.addData(hotelsList)
         }
@@ -93,7 +96,6 @@ class HomeActivity : AppCompatActivity(), HomeAdapter.OnClicked {
                     }
                 }
                 homeAdapter.addData(filteredList)
-                Log.i("TAG", "Enter pressed")
             }
             false
         }
